@@ -10,9 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private bool faceRight = true;
 
 
-    public Rigidbody2D player;
-    private Transform groundCheck;
-    private LayerMask groundLayer;
+    [SerializeField] public Rigidbody2D player;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     // Start is called before the first frame update
     void Start()
     {
