@@ -19,13 +19,16 @@ public class EnemyMovement : MonoBehaviour
     }
     private void mover()
     {
+        Vector3 playerVel = player.velocity;
+        float playerX = playerVel.x;
         if (player.position.x < enemy.position.x)
         {
-            enemy.velocity = player.velocity * slowerFactor * -1.0f;
+            
+            enemy.velocity = new Vector3 (playerX * slowerFactor * -1.0f,0,0);
         }
         else if (player.position.x >= enemy.position.x)
         {
-            enemy.velocity = player.velocity * slowerFactor;
+            enemy.velocity = new Vector3(playerX * slowerFactor, 0, 0);
         }
 
     }
