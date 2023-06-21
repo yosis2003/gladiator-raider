@@ -38,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private void Flip()
     {
-        if (faceRight && moveH < 0f || !faceRight && moveH > 0f)
+        if (faceRight && player.position.x >= enemy.position.x || !faceRight && player.position.x < enemy.position.x)
         {
             faceRight = !faceRight;
             Vector3 localScale = transform.localScale;
