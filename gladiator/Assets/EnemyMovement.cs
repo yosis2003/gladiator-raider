@@ -6,7 +6,6 @@ public class EnemyMovement : MonoBehaviour
 {
     public float slowerFactor = 0.5f;
     private bool faceRight = true;
-    private float moveH;
 
     [SerializeField] public Rigidbody2D enemy;
     [SerializeField] public Rigidbody2D player;
@@ -19,12 +18,30 @@ public class EnemyMovement : MonoBehaviour
     }
     private void mover()
     {
+        float waitTime = Random.Range(0.0f, 5.0f);
+        float moveTime = Random.Range(0.0f, 3.0f);
+        float timer = 0.0f;
         Vector3 playerVel = player.velocity;
         float playerX = playerVel.x;
         if (player.position.x < enemy.position.x)
         {
-            
-            enemy.velocity = new Vector3 (playerX * slowerFactor * -1.0f,0,0);
+
+            enemy.velocity = new Vector3(playerX * slowerFactor * -1.0f, 0, 0);
+        }
+        else if (enemy.position.x <= -9.20f || enemy.position.x >= 9.20f)
+        {
+            timer += Time.deltaTime;
+            if (timer >= waitTime && timer <= moveTime)
+            {
+                if (enemy.position.x < 0)
+                {
+                    enemy.velocity = new Vector3(playerX * slowerFactor, 0, 0);
+                }
+                else if (enemy.position.x >= 0)
+                {
+                    enemy.velocity = new Vector3(playerX * slowerFactor * -1.0f , 0, 0);
+                }
+            }
         }
         else if (player.position.x >= enemy.position.x)
         {
