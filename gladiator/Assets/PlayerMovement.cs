@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveH;
     private float jumpPower = 16f;
     private bool faceRight = true;
+    private Animator _animator;
 
 
     [SerializeField] public Rigidbody2D player;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Grounded())
         {
             player.velocity = new Vector2(player.velocity.x, jumpPower);
+        }
+        if (player.velocity.x != 0)
+        {
+            _animator.SetBool(name: "IsWalking", value: Grounded());
+        }
+        else
+        {
+            _animator.SetBool(name: "IsWalking", false);
         }
     }
     private bool Grounded()
