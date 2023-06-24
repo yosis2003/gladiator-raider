@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
+    public GameObject healthBar;
     private float moveH;
     private float jumpPower = 16f;
     private bool faceRight = true;
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        //healthBar = GetComponent<GameObject>();
     }
 
     // Update is called once per frame
@@ -52,7 +55,11 @@ public class PlayerMovement : MonoBehaviour
             faceRight =! faceRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale; 
+            transform.localScale = localScale;
+
+            Vector3 healthLocalScale = healthBar.transform.localScale;
+            healthLocalScale.x *= -1f;
+            healthBar.transform.localScale = healthLocalScale;
         }
     }
 
