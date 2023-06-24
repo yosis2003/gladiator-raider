@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private float jumpPower = 16f;
     private bool faceRight = true;
     private Animator _animator;
+    public int maxHealth = 50;
+    public int currentHealth;
+    public Slider healthSlider;
 
 
     [SerializeField] public Rigidbody2D player;
@@ -21,15 +24,17 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        //healthBar = GetComponent<GameObject>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        healthSlider.value = currentHealth;
         moveH = Input.GetAxisRaw("Horizontal");
         player.velocity = new Vector2(moveH * speed, player.velocity.y);
         Flip();
+
 
         if (Input.GetButtonDown("Jump") && Grounded())
         {
@@ -43,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetBool(name: "IsWalking", false);
         }
+        Attack();
     }
     private bool Grounded()
     {
@@ -61,6 +67,22 @@ public class PlayerMovement : MonoBehaviour
             healthLocalScale.x *= -1f;
             healthBar.transform.localScale = healthLocalScale;
         }
+    }
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _animator.SetTrigger(name: "Attack");
+        }
+        /*else if (_animator.GetBool(name: "IsAttacking"))
+        {
+            _animator.SetBool(name: "IsAttacking", value: false);
+        }
+        */
+    }
+    private void TakeDamage(int damage)
+    {
+
     }
 
 }
